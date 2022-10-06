@@ -21,6 +21,7 @@ def evaluate(context: ModelContext, **kwargs):
 
     feature_names = context.dataset_info.feature_names
     target_name = context.dataset_info.target_names[0]
+    key_name = context.dataset_info.key
 
     test_df = DataFrame.from_query(context.dataset_info.sql)
     test_pdf = test_df.to_pandas(all_rows=True)
@@ -32,7 +33,7 @@ def evaluate(context: ModelContext, **kwargs):
     y_pred = model.predict(X_test)
 
     y_pred_tdf = pd.DataFrame(y_pred, columns=[target_name])
-    y_pred_tdf["PatientId"] = test_pdf["PatientId"].values
+    y_pred_tdf[key_name] = test_pdf[key_name].values
 
     evaluation = {
         'Accuracy': '{:.2f}'.format(metrics.accuracy_score(y_test, y_pred)),
