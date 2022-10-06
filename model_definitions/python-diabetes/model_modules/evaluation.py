@@ -21,7 +21,7 @@ def evaluate(context: ModelContext, **kwargs):
 
     feature_names = context.dataset_info.feature_names
     target_name = context.dataset_info.target_names[0]
-    key_name = context.dataset_info.key
+    key_name = context.dataset_info.entity_key
 
     test_df = DataFrame.from_query(context.dataset_info.sql)
     test_pdf = test_df.to_pandas(all_rows=True)
